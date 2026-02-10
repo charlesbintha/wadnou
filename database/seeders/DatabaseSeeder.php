@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             DoctorProfilesSeeder::class,
             DoctorDocumentsSeeder::class,
             LocationsSeeder::class,
+            SubscriptionPlansSeeder::class,
             SlaSeeder::class,
             ConsultationsSeeder::class,
             AppointmentsSeeder::class,

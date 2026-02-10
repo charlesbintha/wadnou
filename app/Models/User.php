@@ -116,6 +116,17 @@ class User extends Authenticatable
         return $this->hasMany(AuditAction::class, 'actor_id');
     }
 
+    public function subscriptions()
+    {
+        return $this->hasMany(PatientSubscription::class, 'patient_id');
+    }
+
+    public function activeSubscription()
+    {
+        return $this->hasOne(PatientSubscription::class, 'patient_id')
+            ->where('status', 'active');
+    }
+
     public function isDoctor(): bool
     {
         return $this->role === 'doctor';

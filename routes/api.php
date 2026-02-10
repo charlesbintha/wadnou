@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\Doctor\AppointmentsController as DoctorAppointments
 use App\Http\Controllers\Api\Doctor\AvailabilityController as DoctorAvailabilityController;
 use App\Http\Controllers\Api\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Api\Doctor\NavigationController as DoctorNavigationController;
+use App\Http\Controllers\Api\SubscriptionsController;
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
@@ -57,6 +58,17 @@ Route::middleware('auth:sanctum')->group(function () {
     // Device tokens
     Route::post('device-tokens', [AuthController::class, 'registerDeviceToken']);
     Route::delete('device-tokens', [AuthController::class, 'removeDeviceToken']);
+
+    // Subscriptions
+    Route::get('subscriptions/plans', [SubscriptionsController::class, 'plans']);
+    Route::get('subscriptions/plans/{plan}', [SubscriptionsController::class, 'showPlan']);
+    Route::get('subscriptions/my', [SubscriptionsController::class, 'mySubscription']);
+    Route::get('subscriptions/history', [SubscriptionsController::class, 'history']);
+    Route::post('subscriptions/subscribe', [SubscriptionsController::class, 'subscribe']);
+    Route::post('subscriptions/cancel', [SubscriptionsController::class, 'cancel']);
+    Route::post('subscriptions/pause', [SubscriptionsController::class, 'pause']);
+    Route::post('subscriptions/resume', [SubscriptionsController::class, 'resume']);
+    Route::post('subscriptions/estimate', [SubscriptionsController::class, 'estimate']);
 });
 
 // Doctor routes

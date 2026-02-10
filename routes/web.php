@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\SlaController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\LocationsController;
+use App\Http\Controllers\Admin\SubscriptionPlansController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\Doctor\ConsultationsController as DoctorConsultationsController;
@@ -68,6 +69,15 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('locations', [LocationsController::class, 'index'])->name('locations.index');
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications.index');
     Route::get('audit', [AuditController::class, 'index'])->name('audit.index');
+
+    // Subscription Plans
+    Route::get('subscription-plans', [SubscriptionPlansController::class, 'index'])->name('subscription-plans.index');
+    Route::get('subscription-plans/create', [SubscriptionPlansController::class, 'create'])->name('subscription-plans.create');
+    Route::post('subscription-plans', [SubscriptionPlansController::class, 'store'])->name('subscription-plans.store');
+    Route::get('subscription-plans/{subscriptionPlan}/edit', [SubscriptionPlansController::class, 'edit'])->name('subscription-plans.edit');
+    Route::put('subscription-plans/{subscriptionPlan}', [SubscriptionPlansController::class, 'update'])->name('subscription-plans.update');
+    Route::delete('subscription-plans/{subscriptionPlan}', [SubscriptionPlansController::class, 'destroy'])->name('subscription-plans.destroy');
+    Route::patch('subscription-plans/{subscriptionPlan}/toggle', [SubscriptionPlansController::class, 'toggle'])->name('subscription-plans.toggle');
 });
 
 // Doctor routes
