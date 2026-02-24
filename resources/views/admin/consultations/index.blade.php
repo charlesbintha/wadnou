@@ -20,9 +20,14 @@
 </div>
 <div class="container-fluid">
     <div class="card">
-        <div class="card-header">
-            <h5>Demandes de consultation</h5>
-            <span>Suivre l'assignation, le statut, et les delais SLA.</span>
+        <div class="card-header d-flex justify-content-between align-items-start">
+            <div>
+                <h5 class="mb-1">Demandes de consultation</h5>
+                <span>Suivre l'assignation, le statut, et les delais SLA.</span>
+            </div>
+            <a class="btn btn-success btn-sm" href="{{ route('admin.consultations.export', request()->query()) }}">
+                <i data-feather="download" style="width:14px;height:14px;"></i> Excel
+            </a>
         </div>
         <div class="card-body">
             <form class="row g-3 mb-3" method="get">

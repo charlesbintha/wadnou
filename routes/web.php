@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\SlaController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\LocationsController;
+use App\Http\Controllers\Admin\PatientSubscriptionsController;
 use App\Http\Controllers\Admin\SubscriptionPlansController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
@@ -44,7 +45,16 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    // Users CRUD
     Route::get('users', [UsersController::class, 'index'])->name('users.index');
+    Route::get('users/create', [UsersController::class, 'create'])->name('users.create');
+    Route::get('users/export', [UsersController::class, 'export'])->name('users.export');
+    Route::post('users', [UsersController::class, 'store'])->name('users.store');
+    Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
+    Route::get('users/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
+    Route::put('users/{user}', [UsersController::class, 'update'])->name('users.update');
+    Route::delete('users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
+    Route::patch('users/{user}/toggle-status', [UsersController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::get('doctors/create', [DoctorsController::class, 'create'])->name('doctors.create');
     Route::post('doctors', [DoctorsController::class, 'store'])->name('doctors.store');
     Route::get('doctors', [DoctorsController::class, 'index'])->name('doctors.index');
@@ -59,6 +69,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::patch('doctor-documents/{document}', [DoctorDocumentsController::class, 'update'])->name('doctor-documents.update');
     Route::delete('doctor-documents/{document}', [DoctorDocumentsController::class, 'destroy'])->name('doctor-documents.destroy');
     Route::get('consultations', [ConsultationsController::class, 'index'])->name('consultations.index');
+    Route::get('consultations/export', [ConsultationsController::class, 'export'])->name('consultations.export');
     Route::get('consultations/{consultation}', [ConsultationsController::class, 'show'])->name('consultations.show');
     Route::patch('consultations/{consultation}', [ConsultationsController::class, 'update'])->name('consultations.update');
     Route::post('consultations/{consultation}/appointment', [ConsultationsController::class, 'storeAppointment'])->name('consultations.appointments.store');
@@ -78,6 +89,14 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::put('subscription-plans/{subscriptionPlan}', [SubscriptionPlansController::class, 'update'])->name('subscription-plans.update');
     Route::delete('subscription-plans/{subscriptionPlan}', [SubscriptionPlansController::class, 'destroy'])->name('subscription-plans.destroy');
     Route::patch('subscription-plans/{subscriptionPlan}/toggle', [SubscriptionPlansController::class, 'toggle'])->name('subscription-plans.toggle');
+
+    // Patient subscriptions
+    Route::get('patient-subscriptions', [PatientSubscriptionsController::class, 'index'])->name('patient-subscriptions.index');
+    Route::get('patient-subscriptions/export', [PatientSubscriptionsController::class, 'export'])->name('patient-subscriptions.export');
+    Route::get('patient-subscriptions/{patientSubscription}', [PatientSubscriptionsController::class, 'show'])->name('patient-subscriptions.show');
+    Route::patch('patient-subscriptions/{patientSubscription}/cancel', [PatientSubscriptionsController::class, 'cancel'])->name('patient-subscriptions.cancel');
+    Route::patch('patient-subscriptions/{patientSubscription}/pause', [PatientSubscriptionsController::class, 'pause'])->name('patient-subscriptions.pause');
+    Route::patch('patient-subscriptions/{patientSubscription}/resume', [PatientSubscriptionsController::class, 'resume'])->name('patient-subscriptions.resume');
 });
 
 // Doctor routes

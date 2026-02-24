@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ConsultationsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\ConsultationRequest;
@@ -9,6 +10,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ConsultationsController extends Controller
 {
@@ -89,5 +92,10 @@ class ConsultationsController extends Controller
         return redirect()
             ->route('admin.consultations.show', $consultation)
             ->with('status', 'Rendez-vous cree.');
+    }
+
+    public function export(Request $request): BinaryFileResponse
+    {
+        return Excel::download(new ConsultationsExport($request), 'consultations_' . now()->format('Ymd_His') . '.xlsx');
     }
 }

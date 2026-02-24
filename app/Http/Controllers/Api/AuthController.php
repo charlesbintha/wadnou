@@ -49,6 +49,15 @@ class AuthController extends Controller
             'phone' => ['required', 'string', 'max:32'],
             'password' => ['required', 'string', 'min:8'],
             'device_name' => ['nullable', 'string', 'max:100'],
+        ], [
+            'name.required' => 'Le nom est requis.',
+            'name.max' => 'Le nom ne doit pas depasser 120 caracteres.',
+            'email.required' => 'L\'email est requis.',
+            'email.email' => 'L\'email n\'est pas valide.',
+            'email.unique' => 'Cet email est deja utilise.',
+            'phone.required' => 'Le telephone est requis.',
+            'password.required' => 'Le mot de passe est requis.',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caracteres.',
         ]);
 
         $user = User::create([

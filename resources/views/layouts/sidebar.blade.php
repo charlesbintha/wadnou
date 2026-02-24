@@ -122,6 +122,16 @@
                              </svg><span>Forfaits</span>
                          </a>
                      </li>
+                     <li class="sidebar-list">
+                         <a class="sidebar-link sidebar-title link-nav" href="{{ route('admin.patient-subscriptions.index') }}">
+                             <svg class="stroke-icon">
+                                 <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-bookmark') }}"></use>
+                             </svg>
+                             <svg class="fill-icon">
+                                 <use href="{{ asset('assets/svg/icon-sprite.svg#fill-bookmark') }}"></use>
+                             </svg><span>Abonnements</span>
+                         </a>
+                     </li>
 
                  </ul>
              </div>
