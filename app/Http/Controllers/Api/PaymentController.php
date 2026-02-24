@@ -112,7 +112,7 @@ class PaymentController extends Controller
     {
         $params = $request->all();
 
-        Log::info('PayTech IPN recu', array_except($params ?? [], []));
+        Log::info('PayTech IPN recu', $params ?? []);
 
         // Verifier la signature
         if (!$this->paytech->verifyIpn($params)) {
