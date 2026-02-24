@@ -14,10 +14,14 @@ use App\Http\Controllers\Api\Doctor\AppointmentsController as DoctorAppointments
 use App\Http\Controllers\Api\Doctor\AvailabilityController as DoctorAvailabilityController;
 use App\Http\Controllers\Api\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Api\Doctor\NavigationController as DoctorNavigationController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\SubscriptionsController;
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
+
+// PayTech IPN (webhook public, pas d'authentification)
+Route::post('payments/ipn', [PaymentController::class, 'ipn']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('auth/me', [AuthController::class, 'me']);
@@ -58,6 +62,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Device tokens
     Route::post('device-tokens', [AuthController::class, 'registerDeviceToken']);
     Route::delete('device-tokens', [AuthController::class, 'removeDeviceToken']);
+
+    // Paiement PayTech
+    Route::post('payments/initiate', [PaymentController::class, 'initiate']);
 
     // Subscriptions
     Route::get('subscriptions/plans', [SubscriptionsController::class, 'plans']);
